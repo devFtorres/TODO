@@ -28,7 +28,7 @@ fun RegisterScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Registrar", style = MaterialTheme.typography.headlineMedium)
+        Text("Registar", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
         // Campo de e-mail (Novo)
@@ -44,7 +44,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Usuário") },
+            label = { Text("User") },
             singleLine = true
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -95,10 +95,10 @@ fun RegisterScreen(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Registrar")
+            Text("Registar")
         }
 
-        // Mensagem de erro
+
         errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = it, color = MaterialTheme.colorScheme.error)
@@ -106,7 +106,7 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botão para alternar para login
+
         TextButton(onClick = onNavigateToLogin) {
             Text("Já tem uma conta? Entre aqui")
         }

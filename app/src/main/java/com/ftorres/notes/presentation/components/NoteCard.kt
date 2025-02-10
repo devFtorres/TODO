@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.ftorres.notes.domain.model.Note
 
 
@@ -21,21 +22,31 @@ fun NoteCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .clickable(onClick = onClick)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = note.title, style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = note.content, style = MaterialTheme.typography.bodyMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                IconButton(onClick = onDelete) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Excluir")
-                }
+            Text(text = note.title, style = MaterialTheme.typography.titleLarge)
+            Text(text = note.content)
+
+            note.imageUrl?.let { url ->
+                AsyncImage(
+                    model = url,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                )
+            }
+
+            if (note.latitude != null && note.longitude != null) {
+                Text(
+                    text = "📍 ${note.latitude}, ${note.longitude}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
+            IconButton(onClick = onDelete) {
+                Icon(Icons.Default.Delete, contentDescription = "Deletar")
             }
         }
     }

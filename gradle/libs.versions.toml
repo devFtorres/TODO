@@ -20,6 +20,7 @@ retrofit = "2.9.0"
 room-ktx = "2.6.1"
 room-runtime = "2.6.1"
 work-runtime-ktx = "2.10.0"
+play-services-maps = "19.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -48,6 +49,7 @@ androidx-test-espresso = { group = "androidx.test.espresso", name = "espresso-co
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "play-services-auth" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work-runtime-ktx" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

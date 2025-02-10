@@ -10,6 +10,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import com.mapbox.maps.MapView
+import com.mapbox.maps.Style
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -22,7 +24,10 @@ object AppModule {
             application.applicationContext,
             AppDatabase::class.java,
             "notes_db"
-        ).fallbackToDestructiveMigration().build()
+        )
+            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -33,5 +38,13 @@ object AppModule {
     @Provides
     fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapboxMap(application: Application): MapView {
+        return MapView(application).apply {
+            getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS)
+        }
     }
 }

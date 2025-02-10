@@ -13,14 +13,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    private const val BASE_URL = "https://seu-backend.com/api/"
+    private const val BASE_URL = "https://backend.com/api/"
 
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // 🔄 Converte JSON para objetos Kotlin
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 

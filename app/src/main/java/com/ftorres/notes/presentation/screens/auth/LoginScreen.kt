@@ -21,14 +21,13 @@ fun LoginScreen(
     viewModel: AuthViewModel,
     onLoginSuccess: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    onGoogleSignIn: () -> Unit // 🔥 Adicionando o parâmetro correto!
+    onGoogleSignIn: () -> Unit
 ) {
     val context = LocalContext.current as Activity
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    // Configuração correta do Google Sign-In
     val googleSignInClient = remember {
         GoogleSignIn.getClient(
             context,
@@ -39,7 +38,6 @@ fun LoginScreen(
         )
     }
 
-    // Launcher para processar o resultado do login com Google
     val googleSignInLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -76,7 +74,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Usuário") }
+            label = { Text("User") }
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -101,7 +99,7 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { onGoogleSignIn() }) { // 🔥 Agora chamamos a função corretamente
+        Button(onClick = { onGoogleSignIn() }) {
             Text("Entrar com Google")
         }
 

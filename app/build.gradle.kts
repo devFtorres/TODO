@@ -10,15 +10,24 @@ android {
     namespace = "com.ftorres.notes"
     compileSdk = 35
 
-    defaultConfig {
-        applicationId = "com.ftorres.notes"
-        minSdk = 23
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+    android {
+        compileSdk = 35
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        defaultConfig {
+            applicationId = "com.ftorres.notes"
+            minSdk = 21
+            targetSdk = 35
+            versionCode = 1
+            versionName = "1.0"
+
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+            // Passando o Mapbox Access Token para o Manifest
+            manifestPlaceholders["MAPBOX_ACCESS_TOKEN"] = providers.gradleProperty("MAPBOX_ACCESS_TOKEN").getOrElse("")
+            buildConfigField("String", "MAPBOX_ACCESS_TOKEN", "\"${providers.gradleProperty("MAPBOX_ACCESS_TOKEN").get()}\"")
+        }
     }
+
 
     buildTypes {
         release {
@@ -39,6 +48,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -63,6 +73,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.play.services.maps)
     kapt("androidx.room:room-compiler:2.6.1")
 
     // DataStore
@@ -98,5 +109,11 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+
+    implementation("com.mapbox.common:common:23.8.0")
+    implementation("com.mapbox.maps:android:11.0.0")
+
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
 
 }

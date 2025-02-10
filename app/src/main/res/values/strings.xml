@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Notes</string>
     <string name="default_web_client_id">1061330937711-ug3htdr3b1t7sh0upm930klns9u8js8b.apps.googleusercontent.com</string>
+    <string name="mapbox_access_token">sk.eyJ1IjoiZnRvcnJlc2RldiIsImEiOiJjbTZ6MGhkY2YwMHJ2MmtzOWR5ZXJyd2NjIn0.waEOjUI1lOk6sfRus51rvA</string>
 </resources>

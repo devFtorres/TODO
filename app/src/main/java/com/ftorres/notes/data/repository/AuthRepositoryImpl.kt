@@ -43,7 +43,7 @@ class AuthRepositoryImpl @Inject constructor(
                 true
             } ?: false
         } catch (e: Exception) {
-            Log.e("AuthRepository", "Erro ao registrar usuário", e)
+            Log.e("AuthRepository", "Erro ao registrar user", e)
             false
         }
     }
@@ -53,7 +53,7 @@ class AuthRepositoryImpl @Inject constructor(
             val credential = GoogleAuthProvider.getCredential(token, null)
             val authResult = firebaseAuth.signInWithCredential(credential).await()
             authResult.user?.let { firebaseUser ->
-                val user = User(id = firebaseUser.uid, email = firebaseUser.email ?: "", username = firebaseUser.displayName ?: "Usuário desconhecido", password = "")
+                val user = User(id = firebaseUser.uid, email = firebaseUser.email ?: "", username = firebaseUser.displayName ?: "User desconhecido", password = "")
                 if (userDao.getUserByEmail(user.email) == null) {
                     userDao.insertUser(UserEntity(id = user.id, email = user.email, username = user.username, password = ""))
                 }
@@ -67,7 +67,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun getCurrentUser(): User? {
         return firebaseAuth.currentUser?.let {
-            User(id = it.uid, email = it.email ?: "", username = it.displayName ?: it.email ?: "Usuário desconhecido", password = "")
+            User(id = it.uid, email = it.email ?: "", username = it.displayName ?: it.email ?: "User desconhecido", password = "")
         }
     }
 }

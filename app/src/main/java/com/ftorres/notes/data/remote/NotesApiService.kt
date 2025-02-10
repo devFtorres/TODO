@@ -5,7 +5,9 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.DELETE
+import retrofit2.http.PUT
 import retrofit2.http.Path
+
 
 interface NotesApiService {
     @GET("notes")
@@ -16,4 +18,7 @@ interface NotesApiService {
 
     @DELETE("notes/{id}")
     suspend fun deleteNote(@Path("id") id: Int)
+
+    @PUT("notes/{id}/due-date")
+    suspend fun updateNoteDueDate(@Path("id") noteId: Int, @Body dueDate: Long)
 }

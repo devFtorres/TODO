@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.ftorres.notes.data.local.dao.NoteDao
-import com.ftorres.notes.data.local.entity.toDto
 import com.ftorres.notes.data.remote.NotesApiService
 import com.ftorres.notes.data.remote.dto.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import com.ftorres.notes.data.remote.dto.toDto
 
 class NotesSyncWorker(
     context: Context,
@@ -21,20 +21,20 @@ class NotesSyncWorker(
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             try {
-                val localNotes = noteDao.getAllNotes().first() // 🔥 Obtém notas locais
-                val remoteNotes = api.getNotes().map { it.toDomain() } // 🔥 Obtém notas remotas e converte
+                val localNotes = noteDao.getAllNotes().first().map { it.toDomain() }
+                val remoteNotes = api.getNotes().map { it.toDomain() }
 
-                // Sincronizar notas locais para a API
+
                 for (note in localNotes) {
                     if (!remoteNotes.any { it.id == note.id }) {
-                        api.createNote(note.toDto()) // 🔥 Envia para API
+                        api.createNote(note.toDto())
                     }
                 }
 
                 Result.success()
             } catch (e: Exception) {
                 println("⚠️ Erro ao sincronizar: ${e.message}")
-                Result.retry() // 🔄 Tenta novamente depois
+                Result.retry()
             }
         }
     }
